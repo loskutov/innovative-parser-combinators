@@ -20,12 +20,4 @@ package object string {
   def anyOf(s: String): StringParser[Char] = satisfy(s.contains(_))
 
   def noneOf(s: String): StringParser[Char] = satisfy(!s.contains(_))
-
-  implicit class StringParserOps[T](p: StringParser[T]) {
-    def sepBy(sep: StringParser[_]): StringParser[Seq[T]] =
-      for {
-        head <- p
-        rest <- many(sep *> p)
-      } yield head +: rest
-  }
 }
