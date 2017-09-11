@@ -1,4 +1,5 @@
 import core._
+import cats.implicits._
 
 package object string {
   def satisfy(p: Char => Boolean): Parser[String, Char] = Parser { input =>
@@ -9,4 +10,6 @@ package object string {
   }
 
   def char(c: Char): Parser[String, Char] = satisfy(c == _)
+
+  def str(s: String): Parser[String, String] = s.toList.map(char).sequence.map(_.mkString)
 }
